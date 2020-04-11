@@ -1,16 +1,7 @@
 public class newSorting {
 
-    //recrusive quickSort method
-    public void quickSort(int[] array, int start, int end){
-        if(start < end){
-            int partition = sort(array, start, end);
-            quickSort(array, start, partition - 1);
-            quickSort(array, partition + 1, end);
-        }
-    }
-
     //helps the array sort during quicksort
-    int sort(int[] array, int start, int end){
+    public int sort(int[] array, int start, int end){
         int pivot = array[start];
         int partition = start + 1;
         for (int i = start + 1; i < end; i++) {
@@ -26,8 +17,36 @@ public class newSorting {
         return partition - 1;
     }
 
-    public void mergeSortedHalves(int[] array, int[] LH, int[] RH){
+    //recrusive quickSort method
+    public void quickSort(int[] array, int start, int end){
+        if(start < end){
+            int partition = sort(array, start, end);
+            quickSort(array, start, partition - 1);
+            quickSort(array, partition + 1, end);
+        }
+    }
 
+    //sorts an array
+    public void quickSort(int[] array){
+        quickSort(array, 0, array.length - 1);
+    }
+
+    public void merge(int[] array, int[] LH, int[] RH){
+        int left = 0;
+        int right = 0;
+        int index;
+        while(left < array.length && right < array.length){
+            for(index = 0; index < array.length - 1; index++){
+                if(LH[left] < RH[right]){
+                    array[index] = LH[left];
+                    left++;
+                }
+                if(LH[left] > RH[right]){
+                    array[index] = RH[right];
+                    right++;
+                }
+            }
+        }
     }
 
     public void newSorting(int[] array, int size){
@@ -46,7 +65,7 @@ public class newSorting {
             }
             newSorting(LH, size);
             newSorting(RH, size);
-
+            merge(array, LH, RH);
         }
     }
 
